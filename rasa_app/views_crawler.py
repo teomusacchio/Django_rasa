@@ -3,6 +3,7 @@ from django.http import FileResponse, HttpResponse
 from elasticsearch import Elasticsearch
 import os
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 ELASTICSEARCH_HOST = 'localhost'  # Aggiunto qui
 ELASTICSEARCH_PORT = 9200  # Ag
 
@@ -28,10 +29,19 @@ def search_view(request):
 
     return render(request, 'search_results.html', context)
 
+
 def download_file(request, file_path):
+    print(f"file_path ricevuto: {file_path}")
+    if not file_path.startswith('/'):
+        file_path = '/' + file_path
+
+    absolute_file_path = os.path.join(settings.BASE_DIR, file_path)  # Usiamo settings.BASE_DIR
+
     # Assicurati di gestire le questioni di sicurezza
-    with open(file_path, 'rb') as file:
-        response = HttpResponse(file.read(), content_type="application/octet-stream")
-        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+    with open(absolute_file_path, 'rb') as file:  # Usiamo absolute_file_path qui
+        response = HttpResponse(
+            file.read(), content_type="application/octet-stream")
+        response['Content-Disposition'] = 'inline; filename=' + \
+            os.path.basename(file_path)
         return response
 
