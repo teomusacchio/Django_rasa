@@ -131,15 +131,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Abilita il supporto HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 ELASTICSEARCH_HOST = 'localhost'
 ELASTICSEARCH_PORT = 9200
 LOGIN_REDIRECT_URL = '/rasa/search/'  # o l'URL che preferisci
-CORS_ALLOW_ALL_ORIGINS = True
-#CORS_ALLOWED_ORIGINS = [
-#    "https://didatticafutura.it",
-#    "http://didatticafutura.it",
-#    "http://www.didatticafutura.it",
-#    "https://www.didatticafutura.it",
-#]
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://didatticafutura.it",
+    "http://didatticafutura.it",
+    "http://www.didatticafutura.it",
+    "https://www.didatticafutura.it",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://didatticatura.it"
+    "https://didatticafutura.it"
+
+]

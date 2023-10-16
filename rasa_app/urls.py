@@ -9,4 +9,6 @@ urlpatterns = [
     path('api/chatbot/', views.chatbot_response, name='chatbot_response'),
     path('search/', search_view, name='search_view'),
     path('download/<path:file_path>/', download_file, name='download_file'),
+    path('test/', views.test_view, name='test_view'),
+
 ]
