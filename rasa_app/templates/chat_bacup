@@ -1,6 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <center>
@@ -50,7 +51,7 @@
             .then(data => {
                 if (data.message) {
                     var newMessage = document.createElement("p");
-                    newMessage.innerHTML = "Bot: " + data.message; // Modifica qui
+                    newMessage.textContent = "Bot: " + data.message;
                     chatBox.appendChild(newMessage);
 
                     // Svuota il campo di testo
@@ -71,6 +72,8 @@
             }
         });
     </script>
+
 </body>
+
 </html>
 

@@ -32,3 +32,7 @@ def chatbot_response(request):
             return JsonResponse({"error": str(e)})
 
     return JsonResponse({"error": "Metodo non supportato"})
+
+
+def home(request):
+    return render(request, 'home.html')

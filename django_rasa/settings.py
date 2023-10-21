@@ -40,17 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rasa_app',
     'corsheaders',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'django_rasa.urls'
@@ -107,13 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
+LANGUAGE_CODE = 'IT-IT'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+UiSE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -148,3 +152,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://didatticafutura.it"
 
 ]
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '525515403594-3kh1inqn2g7adph37vapn6upd3echk4g.apps.googleusercontent.com',
+            'secret': 'COCSPX-U0D9XIiY6viymQfkHBNQXW23df_2',
+            'key': 'CHIAVE_OPZIONALE',
+        }
+    }
+}
