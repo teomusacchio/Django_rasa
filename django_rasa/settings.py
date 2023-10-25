@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-xu^acgm-x)txi^)q(vsimb0b671u*wt1kgq=4wtb%+$dasph1*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['didatticafutura.it',
+ALLOWED_HOSTS = ['didatticafutura.it', '192.168.1.128',
                  '151.3.180.176', 'localhost', '127.0.0.1']
 
 
@@ -44,18 +45,20 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'print_middleware.PrintRedirectURLMiddleware',
 ]
 
 ROOT_URLCONF = 'django_rasa.urls'
@@ -63,7 +66,7 @@ ROOT_URLCONF = 'django_rasa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,6 +128,9 @@ UiSE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static_collected")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -139,7 +145,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # CSRF_COOKIE_SECURE = True
 ELASTICSEARCH_HOST = 'localhost'
 ELASTICSEARCH_PORT = 9200
-LOGIN_REDIRECT_URL = '/rasa/search/'  # o l'URL che preferisci
+LOGIN_REDIRECT_URL = '/'  # o l'URL che preferisci
+LOGIN_URL = '/accounts/login/'
+CSRF_COOKIE_DOMAIN = ".didatticafutura.it"
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "https://didatticafutura.it",
@@ -148,7 +156,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.didatticafutura.it",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "http://didatticatura.it"
+    "http://didatticafutura.it",
     "https://didatticafutura.it"
 
 ]
@@ -156,8 +164,13 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
             'client_id': '525515403594-3kh1inqn2g7adph37vapn6upd3echk4g.apps.googleusercontent.com',
-            'secret': 'COCSPX-U0D9XIiY6viymQfkHBNQXW23df_2',
+            'secret': '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',
             'key': 'CHIAVE_OPZIONALE',
-        }
-    }
-}
+        },
+        'AUTH_PARAMS': {
+            'redirect_uri': 'https://didatticafutura.it/accounts/google/login/callback/'
+        },
+      }
+    } 
+SITE_ID = 1
+ACCOUNT_UNIQUE_EMAIL = True

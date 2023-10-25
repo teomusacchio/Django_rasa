@@ -4,10 +4,14 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
+
 def test_view(request):
     return HttpResponse("Test success!")
 
-# @login_required
+
+@login_required
+
+
 def chat_view(request):
     return render(request, 'chat.html')
 
