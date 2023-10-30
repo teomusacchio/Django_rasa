@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django.contrib.sites',
+    'allauth.socialaccount.providers.github',
+    'textual_docs'
+
 ]
 
 MIDDLEWARE = [
@@ -126,9 +129,11 @@ UiSE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static_collected")
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "rasa_app", "static"),]
 
 
 # Default primary key field type
@@ -141,8 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Abilita il supporto HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 ELASTICSEARCH_HOST = 'localhost'
 ELASTICSEARCH_PORT = 9200
 LOGIN_REDIRECT_URL = '/'  # o l'URL che preferisci
@@ -160,17 +166,51 @@ CSRF_TRUSTED_ORIGINS = [
     "https://didatticafutura.it"
 
 ]
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': '525515403594-3kh1inqn2g7adph37vapn6upd3echk4g.apps.googleusercontent.com',
-            'secret': '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',
-            'key': 'CHIAVE_OPZIONALE',
-        },
-        'AUTH_PARAMS': {
-            'redirect_uri': 'https://didatticafutura.it/accounts/google/login/callback/'
-        },
-      }
-    } 
+#SOCIALACCOUNT_PROVIDERS = {
+#    'google': {
+#        'APP': {
+#            'client_id': '525515403594-jal3bnhp7tgr16932evoluafh3sdt1n0.apps.googleusercontent.com',
+#            'secret': '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',
+#        },
+#        'AUTH_PARAMS': {
+#            'redirect_uri': 'https://didatticafutura.it/accounts/'
+#                            'google/login/callback/'
+#        },
+#      }
+#    }
 SITE_ID = 1
 ACCOUNT_UNIQUE_EMAIL = True
+LOGGING_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+

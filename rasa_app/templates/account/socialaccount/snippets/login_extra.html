@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<div class="social-login-prompt">
+    <h2>{% trans "Sign In Via Google" %}</h2>
+    <p>{% trans "You are about to sign in using a third party account from Google." %}</p>
+
+    <a href="{% url 'socialaccount_login' provider='google' %}" class="btn btn-primary">{% trans "Continue" %}</a>
+</div>
+

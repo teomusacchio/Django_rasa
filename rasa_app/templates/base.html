@@ -1,22 +1,24 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risultati di ricerca ciao</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>{% block head_title %}Titolo Default{% endblock head_title %}</title>
 </head>
 <body>
-    <h1>Risultati di ricerca ciao</h1>
-    <ul>
-        {% for path in file_paths %}
-            <li>{{ path }}</li>
-        {% endfor %}
-    </ul>
-
-    {% for file_path in file_paths %}
-        <a href="{% url 'download_file' file_path=file_path|slice:1 %}">Scarica {{ file_path }}</a><br>
-    {% endfor %}
+    <div class="container">
+        {% block content %}
+            <!-- Il contenuto di default, se necessario, può andare qui -->
+        {% endblock content %}
+    </div>
 </body>
 </html>
 

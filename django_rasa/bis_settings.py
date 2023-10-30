@@ -163,11 +163,47 @@ CSRF_TRUSTED_ORIGINS = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '525515403594-3kh1inqn2g7adph37vapn6upd3echk4g.apps.googleusercontent.com',
-            'secret': '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',
-            'key': 'CHIAVE_OPZIONALE',
-        }
+            'client_id': '525515403594-jal3bnhp7tgr16932evoluafh3sdt1n0.apps.googleusercontent.com',
+            'secret': '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',
+        },
+        'AUTH_PARAMS': {
+            'redirect_uri': 'https://didatticafutura.it/accounts/'
+                            'google/login/callback/'
+        },
+      }
     }
-}
 SITE_ID = 1
 ACCOUNT_UNIQUE_EMAIL = True
+LOGGING_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+)

@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.socialaccount_providers {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-or {
+    text-align: center;
+    margin: 20px 0;
+}
+
+form.login {
+    margin-top: 20px;
+}
+
+button.primaryAction {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button.primaryAction:hover {
+    background-color: #0056b3;
+}
+
+a.button {
+    display: block;
+    background-color: #ccc;
+    color: #333;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+a.button:hover {
+    background-color: #aaa;
+}
+
